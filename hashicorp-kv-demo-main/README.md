@@ -93,3 +93,25 @@ kubectl exec -it <pod name> -n vault -- ls /vault/secrets/
 kubectl exec -it <pod name> -n vault -- cat /vault/secrets/clisecret
 kubectl exec -it <pod name> -n vault -- cat /vault/secrets/uisecret
 ```
+
+
+access the vault UI 
+
+<img width="781" alt="Screen Shot 2025-06-04 at 12 32 01 AM" src="https://github.com/user-attachments/assets/4ee23c73-a6ff-4843-8967-c81da0d1f61d" />
+
+<img width="1158" alt="Screen Shot 2025-06-04 at 12 29 21 AM" src="https://github.com/user-attachments/assets/cd4776ab-71a4-4db7-8fe5-64f6a8dd7b47" />
+
+create a new credentials UI secret username sridhar pwd: (Password) example
+
+<img width="1022" alt="Screen Shot 2025-06-04 at 12 29 37 AM" src="https://github.com/user-attachments/assets/40e81772-c9a6-40b6-959f-7f6a15f068e3" />
+
+verify the creation
+
+<img width="1158" alt="Screen Shot 2025-06-04 at 12 29 21 AM" src="https://github.com/user-attachments/assets/a9c2b487-7460-4f4a-9cec-48a80b22a58a" />
+
+verify the pod to check if the hashcorp secrets are available
+
+<img width="883" alt="Screen Shot 2025-06-04 at 12 29 04 AM" src="https://github.com/user-attachments/assets/b59b20a5-3107-421a-8785-c8b24dc7647f" />
+
+
+
