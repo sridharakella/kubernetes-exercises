@@ -109,6 +109,9 @@ verify the creation
 
 <img width="1158" alt="Screen Shot 2025-06-04 at 12 29 21 AM" src="https://github.com/user-attachments/assets/a9c2b487-7460-4f4a-9cec-48a80b22a58a" />
 
+<img width="538" alt="Screen Shot 2025-06-04 at 12 29 12 AM" src="https://github.com/user-attachments/assets/a0758291-191d-4119-b042-1bad2d55bfc2" />
+
+
 verify the pod to check if the hashcorp secrets are available
 
 <img width="883" alt="Screen Shot 2025-06-04 at 12 29 04 AM" src="https://github.com/user-attachments/assets/b59b20a5-3107-421a-8785-c8b24dc7647f" />
