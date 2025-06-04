@@ -1,3 +1,7 @@
+<img width="738" alt="Architecture" src="https://github.com/user-attachments/assets/46756e7a-7eab-424e-8aa4-b5763e79a72a" />
+
+
+
 ## Hashicorp-kv-demo
 
 Create the vault namespace:
