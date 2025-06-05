@@ -4,7 +4,7 @@
 
 ## Kubernetes Cluster with Docker Desktop
 
-Set Up Kubernetes Cluster with Docker Desktop: [Kubernetes Cluster Setup](https://youtu.be/IBkU4dghY0Y)
+Set Up Kubernetes Cluster with Docker Desktop: 
 
 ## Command to Install Keycloak
 
