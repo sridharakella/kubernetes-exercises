@@ -12,7 +12,7 @@ spec:
       labels:
         app: nginxdeployment
     spec:
-      serviceAccountName: mikeuser
+      serviceAccountName: sridharuser
       containers:
       - name: nginxdeployment
         image: nginx:latest
