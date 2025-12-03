@@ -13,7 +13,7 @@ metadata:
   name: read-pod-global
 subjects:
 - kind: ServiceAccount
-  name: mikeuser1
+  name: sridharuser1
   apiGroup: ""
   namespace: default
 roleRef:
