@@ -1,5 +1,5 @@
 # Service Account
-kubectl create sa mikeuser
+kubectl create sa sridharuser
 
 # Get Service Account
-kubectl get sa mikeuser
+kubectl get sa sridharuser
