@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket = "terraformaws11"
+    bucket = "sridhar-akella-s3-bucket"
     key    = "eks-terraform.tfstate"
-    region = "us-east-2"
+    region = "us-east-1"
   }
   required_providers {
     aws = {
