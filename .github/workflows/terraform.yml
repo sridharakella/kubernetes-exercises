@@ -37,7 +37,7 @@ jobs:
 
     - name: Terraform Init
       working-directory: One/cluster/
-      run: terraform init -backend-config "bucket=sridhar-akella-s3-bucket" -backend-config "key=eks-prod.tfstate"
+      run: terraform init -backend-config "bucket=sridhar-akella-s3-bucket1" -backend-config "key=eks-prod.tfstate"
            
     - name: Terraform Format
       working-directory: One/cluster/
