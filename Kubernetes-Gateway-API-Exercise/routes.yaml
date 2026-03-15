@@ -1,0 +1,23 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: colors-route
+  namespace: default
+spec:
+  parentRefs:
+    - name: colors-gateway
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /green
+      backendRefs:
+        - name: green-svc
+          port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /blue
+      backendRefs:
+        - name: blue-svc
+          port: 80
