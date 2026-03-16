@@ -34,7 +34,7 @@ eksctl create cluster -f eks-config.yml
 
 - Using Terraform 
 
-You can refer the video: https://youtu.be/wY8VFIAz_Og?si=1USqt2bME8_Gh9jt
+
 
 You can modify the EKS configuration as per the requirement.
 
