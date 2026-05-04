@@ -1,0 +1,127 @@
+
+## Getting started
+
+
+You will also need to update the `databricks.yml` configuration file with your Workspace URLs and Service Principal details.
+
+You'll also want to set up local Python environments for Databricks Connect and local PySpark development. Follow the instructions for your platform below.
+
+### Virtual Environment Setup
+
+#### macOS / Linux
+
+1. **Create and activate the Databricks Connect environment (using Python 3.11)**
+   ```bash
+   # at the project root
+   python3.11 -m venv .venv_dbc
+   source .venv_dbc/bin/activate
+   ```
+2. **Install Databricks Connect dependencies**
+   ```bash
+   pip install -r requirements-dbc.txt
+   ```
+3. **Verify installation**
+   ```bash
+   pip list
+   deactivate
+   ```
+
+4. **Create and activate the local PySpark environment**
+   ```bash
+   python3.11 -m venv .venv_pyspark
+   source .venv_pyspark/bin/activate
+   ```
+5. **Install PySpark dependencies**
+   ```bash
+   pip install -r requirements-pyspark.txt
+   ```
+6. **Verify installation**
+   ```bash
+   pip list
+   deactivate
+   ```
+
+#### Windows
+
+1. **Create and activate the Databricks Connect environment (using Python 3.11)**
+   ```powershell
+   # at the project root
+   py -3.11 -m venv .venv_dbc
+   .\.venv_dbc\Scripts\activate
+   ```
+2. **Install Databricks Connect dependencies**
+   ```powershell
+   pip install -r requirements-dbc.txt
+   ```
+3. **Verify installation**
+   ```powershell
+   pip list
+   deactivate
+   ```
+
+4. **Create and activate the local PySpark environment**
+   ```powershell
+   python -m venv .venv_pyspark
+   .\.venv_pyspark\Scripts\Activate.ps1
+   ```
+5. **Install PySpark dependencies**
+   ```powershell
+   pip install -r requirements-pyspark.txt
+   ```
+6. **Verify installation**
+   ```powershell
+   pip list
+   deactivate
+   ```
+
+---
+### Databricks CLI, Set-Up and Bundle Commands
+
+1. Install the Databricks CLI
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+   ```
+   or alternatively on a MacOS if you need admin override
+   ```bash
+   sudo curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh
+   ```
+
+2. Authenticate to your Databricks workspace, if you have not done so already:
+    ```bash
+    databricks configure
+    ```
+
+3. To deploy a development copy of this project, type:
+    ```bash
+    databricks bundle deploy --target dev
+    ```
+    (Note that "dev" is the default target, so the `--target` parameter
+    is optional here.)
+
+    This deploys everything that's defined for this project.
+    For example, the default template would deploy a job called
+    `[dev yourname] dab_project_job` to your workspace.
+    You can find that job by opening your workspace and clicking on **Workflows**.
+
+4. Similarly, to deploy a production copy, type:
+   ```bash
+   databricks bundle deploy --target prod
+   ```
+
+   Note that the default job from the template has a schedule that runs every day
+   (defined in resources/dab_project.job.yml). The schedule
+   is paused when deploying in development mode (see
+   https://docs.databricks.com/dev-tools/bundles/deployment-modes.html).
+
+5. To run a job or pipeline, use the "run" command:
+   ```bash
+   databricks bundle run
+   ```
+
+6. Optionally, install developer tools such as the Databricks extension for Visual Studio Code from
+   https://docs.databricks.com/dev-tools/vscode-ext.html.
+
+7. For documentation on the Databricks asset bundles format used
+   for this project, and for CI/CD configuration, see
+   https://docs.databricks.com/dev-tools/bundles/index.html.
+
