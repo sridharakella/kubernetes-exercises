@@ -1,0 +1,108 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1>Welcome to Sports Center</h1>
+      <p>Your one-stop destination for all your shopping needs.</p>
+    </div>
+    <app-pagination
+      [totalElements]="storeData.totalElements"
+      [currentPage]="storeData.currentPage"
+      [pageSize]="storeData.pageSize"
+      (pageChanged)="pageChanged($event)"
+    ></app-pagination>
+    <app-pagination-header
+      [totalElements]="storeData.totalElements"
+      [currentPage]="storeData.currentPage"
+      [pageSize]="storeData.pageSize"
+    ></app-pagination-header>
+
+    <section class="col-3">
+      <!-- Filters section -->
+      <!-- Sort filter -->
+      <h5 class="text-primary ml-3 mt-4 mb-3">Sort</h5>
+      <select
+        class="custom-select mb-4"
+        [(ngModel)]="storeData.selectedSort"
+        (change)="onSortChange()"
+      >
+        <option value="asc">Name Ascending</option>
+        <option value="desc">Name Descending</option>
+      </select>
+
+      <h5 class="text-primary ml-3 mt-4 mb-3">Brands</h5>
+      <ul class="list-group my-3">
+        <li
+          class="list-group-item"
+          *ngFor="let brand of storeData.brands"
+          [ngClass]="{
+            active:
+              (storeData.selectedBrand?.id === 0 && brand.id === 0) ||
+              (storeData.selectedBrand === brand &&
+                storeData.selectedBrand.id !== 0)
+          }"
+          (click)="selectBrand(brand)"
+        >
+          {{ brand.name }}
+        </li>
+      </ul>
+      <h5 class="text-primary ml-3">Types</h5>
+      <ul class="list-group my-3">
+        <li
+          class="list-group-item"
+          *ngFor="let type of storeData.types"
+          [ngClass]="{
+            active:
+              (storeData.selectedType?.id === 0 && type.id === 0) ||
+              (storeData.selectedType === type &&
+                storeData.selectedType.id !== 0)
+          }"
+          (click)="selectType(type)"
+        >
+          {{ type.name }}
+        </li>
+      </ul>
+    </section>
+
+    <!-- Products section -->
+    <section class="col-9">
+      <div>
+        <div class="d-flex justify-content-between align-items-center pb-2">
+          <div class="d-flex justify-content-center align-items-center"></div>
+
+          <!-- Search and Reset filters -->
+          <div class="d-flex mt-2">
+            <input
+              class="form-control me-2"
+              style="width: 200px"
+              placeholder="Search"
+              [(ngModel)]="storeData.search"
+              type="text"
+            />
+            <button class="btn btn-outline-primary mx-2" (click)="onSearch()">
+              Search
+            </button>
+            <button class="btn btn-outline-success" (click)="onReset()">
+              Reset
+            </button>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div
+              class="col-md-4 mb-4"
+              *ngFor="let product of storeData.products"
+            >
+              <app-product-item [product]="product"></app-product-item>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<app-pagination
+  [totalElements]="storeData.totalElements"
+  [currentPage]="storeData.currentPage"
+  [pageSize]="storeData.pageSize"
+  (pageChanged)="pageChanged($event)"
+></app-pagination>
