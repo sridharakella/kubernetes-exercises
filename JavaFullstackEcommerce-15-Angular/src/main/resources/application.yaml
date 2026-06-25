@@ -1,30 +1,52 @@
-# Spring Boot Logging Configuration
+# ──────────────────────────────────────────────────────────────────────────
+# application.yaml — Spring Boot application configuration
+# ──────────────────────────────────────────────────────────────────────────
+# This file is loaded automatically by Spring Boot on startup.
+# YAML indentation is significant — use spaces (not tabs).
+# ──────────────────────────────────────────────────────────────────────────
+
+# Logging configuration
+# Sets the verbosity level for different logger namespaces.
 logging:
   level:
-    root: INFO
-    org.springframework.web: INFO
-    com.ecoomerce.sportscenter: DEBUG
+    root: INFO                              # Default log level for all loggers
+    org.springframework.web: INFO           # Spring MVC request/response logs
+    com.ecoomerce.sportscenter: DEBUG       # Our application code — DEBUG for detailed output
 
+# HTTP server configuration
 server:
-  port: 8080
+  port: 8080                               # API listens on port 8080 (Angular runs on 4200)
 
 spring:
+  # ── MySQL (Product catalog: products, brands, types) ──────────────────
   datasource:
-    url: jdbc:mysql://localhost:3306/sportscenter
-    username: root
-    password: password
+    url: jdbc:mysql://localhost:3306/sportscenter  # MySQL connection — port 3306 (Docker-mapped)
+    username: root                                 # MySQL root user (Docker default)
+    password: password                             # MySQL root password — use env vars in production!
+
+  # Application name (used in logs and Spring Cloud service discovery)
   application:
     name: SportsCenter
+
+  # ── JPA / Hibernate (ORM for MySQL) ───────────────────────────────────
   jpa:
     hibernate:
+      # ddl-auto: update — Hibernate auto-creates/alters tables based on entity classes.
+      # Options: create | create-drop | update | validate | none
+      # WARNING: Use 'validate' in production (don't let Hibernate modify the production schema).
       ddl-auto: update
       naming:
+        # PhysicalNamingStrategyStandardImpl uses the exact column names from @Column annotations.
+        # Without this, Hibernate would apply camelCase → snake_case conversion automatically
+        # (e.g. productBrand → product_brand), which would break mapping to the actual column names.
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect  # Hibernate dialect for MySQL 8 SQL syntax
+        format_sql: true                              # Pretty-print SQL in logs (easier to read)
+
+  # ── Redis (Shopping basket) ────────────────────────────────────────────
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: localhost   # Redis server host — localhost because Docker maps port 6379 to the host
+      port: 6379        # Default Redis port (mapped from the Docker container)

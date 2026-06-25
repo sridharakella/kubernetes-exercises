@@ -1,25 +1,58 @@
+# docker-compose.yml — local development infrastructure for SportsCenter
+#
+# Starts two containers:
+#   1. ecommerce-mysql — MySQL 8 for the product catalog (products, brands, types)
+#   2. ecommerce-redis — Redis 7 for shopping basket storage
+#
+# Usage:
+#   Start:  docker compose up -d       (runs in background)
+#   Stop:   docker compose down        (stops but keeps data volumes)
+#   Wipe:   docker compose down -v     (stops AND deletes all data — full reset)
+#
+# After starting: run the Spring Boot application (port 8080) and Angular dev server (port 4200).
+# application.yaml is already configured to connect to localhost:3306 and localhost:6379.
+
 version: '3.1'
 
 services:
+
+  # ── MySQL (Product Catalog) ────────────────────────────────────────────────
   ecommerce-mysql:
-    image: mysql
-    restart: always
+    image: mysql                    # Uses the latest MySQL image from Docker Hub
+    restart: always                 # Auto-restarts if the container crashes
     environment:
-      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password' # Root password — matches spring.datasource.password in application.yaml
+                                      # WARNING: Never use a hardcoded password in production!
     ports:
-      - "3306:3306"
+      - "3306:3306"                 # Maps container port 3306 → host port 3306
+                                    # Spring Boot connects to localhost:3306
+
     volumes:
+      # data.sql is automatically run by MySQL on first startup (empty volume).
+      # It seeds the database with initial product, brand, and type records.
+      # On subsequent starts (volume exists), data.sql is NOT re-run (data is already in the volume).
       - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+
+      # Named volume for persistence: MySQL data survives container restarts.
+      # Deleted only with `docker compose down -v` or `docker volume rm mysql-data`.
       - mysql-data:/var/lib/mysql
 
+  # ── Redis (Shopping Basket) ────────────────────────────────────────────────
   ecommerce-redis:
-    image: "redis:latest"
+    image: "redis:latest"           # Uses the latest Redis image (Redis 7.x as of project creation)
     container_name: "my-redis-container"
     ports:
-      - "6379:6379"
+      - "6379:6379"                 # Maps container port 6379 → host port 6379
+                                    # Spring Boot connects to localhost:6379 (spring.data.redis config)
+
     volumes:
+      # Named volume for Redis persistence (AOF or RDB snapshots stored in /data).
+      # Without this volume, all basket data would be lost on container restart.
       - redis-data:/data
 
+# ── Named Volumes ──────────────────────────────────────────────────────────
+# Docker manages these volumes independently of the containers.
+# They persist data between `docker compose down` and `docker compose up`.
 volumes:
-  redis-data:
-  mysql-data:
+  redis-data:   # Persists Redis shopping basket data
+  mysql-data:   # Persists MySQL product catalog data
